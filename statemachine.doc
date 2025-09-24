@@ -1,0 +1,127 @@
+State Machine -> it is a programing architecture that allows moving from one state 
+                 to another state depending on values(output) from previous states 
+                 or user inputs .
+
+                 each state in state machine perform some unique operations and then
+                 call the another states .
+
+                 state communication dependss on some condition or sequence and it 
+                 contains different parts like
+                 i-> loops to continually executes the various states
+                 ii-> State Structure for each case contains code to be executed for
+                      a state 
+                 iii-> Shift Register -> contains state transition information
+                 iv-> Transition code -> it dertermines the next state in the sequance 
+
+Example -> Scanning a Solar plant for defect detecting uisng drone 
+
+STEP 1 -> list of possible state 
+          * Init - program start load configuration , initialize sensors
+          * Idle - ready and waiting for start command 
+          * Takeoff - executing Takeoff sequance
+          * Scanning - performing scans on plant 
+          * Analyzing - runiing Ml interface on images 
+          * Reporting - sending result to server 
+          * Land - landing the drone 
+          * Shutdown - end of mission 
+
+STEP 2-> state relationship mapping digram
+        +----------------------+
+        |        Init          |
+        | Load config & sensors|
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |        Idle          |
+        | Waiting for command  |
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |       Takeoff        |
+        | Execute takeoff seq. |
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |       Scanning       |
+        | Plant image capture  |
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |      Analyzing       |
+        | Run ML on images     |
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |      Reporting       |
+        | Send result to server|
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |        Land          |
+        | Landing sequence     |
+        +----------v-----------+
+                   |
+                   |
+        +----------+-----------+
+        |      Shutdown        |
+        | End of mission       |
+        +----------------------+
+         
+
+STEP 3 -> BUILD A MAODLE 
+
+
+simple understanding code ->
+
+public class DroneMission {
+    private String currentState = "INIT";  // starting state
+
+    public void nextState() {
+        switch (currentState) {
+            case "INIT":
+                System.out.println("Loading config and sensors...");
+                currentState = "IDLE";
+                break;
+            case "IDLE":
+                System.out.println("Waiting for start command...");
+                currentState = "TAKEOFF";
+                break;
+            case "TAKEOFF":
+                System.out.println("Executing takeoff sequence...");
+                currentState = "SCANNING";
+                break;
+            case "SCANNING":
+                System.out.println("Scanning plant area...");
+                currentState = "ANALYZING";
+                break;
+            case "ANALYZING":
+                System.out.println("Running ML on images...");
+                currentState = "REPORTING";
+                break;
+            case "REPORTING":
+                System.out.println("Sending results to server...");
+                currentState = "LAND";
+                break;
+            case "LAND":
+                System.out.println("Landing drone...");
+                currentState = "SHUTDOWN";
+                break;
+            case "SHUTDOWN":
+                System.out.println("Mission complete. Powering off.");
+                break;
+        }
+    }
+
+    public static void main(String[] args) {
+        DroneMission mission = new DroneMission();
+        while (!mission.currentState.equals("SHUTDOWN")) {
+            mission.nextState();
+        }
+    }
+}
