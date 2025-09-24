@@ -1,0 +1,35 @@
+MAVLink -> it is a Micro Air Vehicle linke designed for communication with device like DroneMission
+           ,rovers and with ground control stations
+
+           widely used in drone industy due to efficiency, reliabblity and flexiblity 
+
+           its like lightweighte binary protocol for communication
+
+           it have 2 type -> mav1 have message capcity of 8-263 bits and from 1-8 bits are for maessgae 
+                             information like messgae id , system id , component id , 
+
+                             mav2 is 2.0 version and it enhance mav features like more message size and security 
+
+        There is a python librarie to implement mav link communication protocol
+
+        PyMAVLink -> it allows us to send , receive and interpret MAVLink messages from drones , or companion computers 
+                    using it we can connect with drones with tcp/udp protocol
+                    send commands like takeoff , land 
+                    receive information like battery and data
+                    
+                    
+                    installation 
+                    pip install PyMAVLink
+
+                    Basic Usage :
+
+                    from pymavlink import mavutil
+                    master = mavutil.mavlink_connection('udp:-----');
+                    master.wait_heartbeat()
+                    print("drone connected")
+                    master.mav.command_long_send("command for drone")
+
+
+
+
+
